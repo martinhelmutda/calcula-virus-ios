@@ -19,13 +19,15 @@ class NetworkingManager: ObservableObject {
 
     
     init() {
-        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"
+//        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"
+        let urlString = "http://127.0.0.1:8000/insumos/"
         
         guard let url = URL(string: urlString) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.addValue("Basic Y2FsY3VsYXZpcnVzOmFkbWlu", forHTTPHeaderField: "Authorization")
+//        request.addValue("Basic Y2FsY3VsYXZpcnVzOmFkbWlu", forHTTPHeaderField: "Authorization")
+        request.addValue("Basic bm9yY286bm9yY29ub3Jjbw==", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -40,9 +42,12 @@ class NetworkingManager: ObservableObject {
                     print("No Data")
                 }
             } catch {
-                print("Eror")
+                print("Error")
             }
         }.resume()
     }
 }
 
+
+
+//http://martinhelmut.pythonanywhere.com/lugares/

@@ -10,14 +10,19 @@ import SwiftUI
 
 struct InsumosGeneralView: View {
     @ObservedObject var networkingManager = NetworkingManager()
+//    @ObservedObject private var imageLoader: DataLoader
     
+    public init() {
+
+//       imageLoader = DataLoader(resourseURL: imageURL)
+   }
     
     var body: some View {
         NavigationView{
             List(networkingManager.insumos){ insumo in
                 NavigationLink(destination: InsumoDetailView(insumo: insumo)) {
-                    Text(insumo.nombre)
-               }
+                    InsumoRow(insumo: insumo)
+                }
             }
         .navigationBarTitle("Insumos")
         }

@@ -16,8 +16,7 @@ struct InsumoDetailView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                Text(insumo.nombre
-                )
+                Text(insumo.nombre)
                     .font(.title)
 
                 HStack(alignment: .top) {
@@ -36,8 +35,25 @@ struct InsumoDetailView: View {
 }
 
 struct InsumoDetailView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
-        InsumoDetailView(insumo: insumos[0])
+        let json = [
+            "id": 1,
+            "nombre": "Mezcal el pescador de sueños",
+            "marca": "Pescador de sueños",
+            "descripcion": "Un Mezcal de los dioses",
+            "lugar_compra": "http://127.0.0.1:8000/lugares/1/",
+            "categoria": "Elíxir",
+            "caducidad": "2022-09-03T00:00:00Z",
+            "cantidad": "1",
+            "prioridad": 5,
+            "duracion_promedio": 1234,
+            "image": "http://127.0.0.1:8000/media/products/None/images_f4XgBiS.jpeg"
+            ] as [String : Any]
+
+        let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        let insumo = try! JSONDecoder().decode(Insumo.self, from: data)
+
+        return InsumoDetailView(insumo: insumo)
     }
 }

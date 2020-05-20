@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A11D5D42474688900F1A86B /* InsumoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11D5D32474688900F1A86B /* InsumoRow.swift */; };
+		9A2DAAC72474A31C00A4BD3E /* Intento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAAC62474A31C00A4BD3E /* Intento.swift */; };
+		9A2DAAC92474AD0600A4BD3E /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAAC82474AD0600A4BD3E /* CircleImage.swift */; };
+		9A31C7A924745BAD00502FE9 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A31C7A824745BAD00502FE9 /* URLImage.swift */; };
+		9A31C7AB24745DD100502FE9 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A31C7AA24745DD100502FE9 /* ImageLoader.swift */; };
+		9A4B8CED246C34C8001FFC8E /* Lugar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4B8CEC246C34C8001FFC8E /* Lugar.swift */; };
 		9A907874246B3FAB005FF04C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A907873246B3FAB005FF04C /* AppDelegate.swift */; };
 		9A907876246B3FAB005FF04C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A907875246B3FAB005FF04C /* SceneDelegate.swift */; };
 		9A907878246B3FAB005FF04C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A907877246B3FAB005FF04C /* ViewController.swift */; };
@@ -20,6 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A11D5D32474688900F1A86B /* InsumoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsumoRow.swift; sourceTree = "<group>"; };
+		9A2DAAC62474A31C00A4BD3E /* Intento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intento.swift; sourceTree = "<group>"; };
+		9A2DAAC82474AD0600A4BD3E /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		9A31C7A824745BAD00502FE9 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
+		9A31C7AA24745DD100502FE9 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		9A4B8CEC246C34C8001FFC8E /* Lugar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lugar.swift; sourceTree = "<group>"; };
 		9A907870246B3FAB005FF04C /* CalculaVirus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalculaVirus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A907873246B3FAB005FF04C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A907875246B3FAB005FF04C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +57,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A4B8CE8246C2BBA001FFC8E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				9A4B8CEB246C34A3001FFC8E /* Lugares */,
+				9A4B8CEA246C3496001FFC8E /* Insummos */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		9A4B8CEA246C3496001FFC8E /* Insummos */ = {
+			isa = PBXGroup;
+			children = (
+				9A907887246B4186005FF04C /* InsumosGeneralView.swift */,
+				9A907890246B756A005FF04C /* InsumoDetailView.swift */,
+				9A2DAAC82474AD0600A4BD3E /* CircleImage.swift */,
+				9A11D5D32474688900F1A86B /* InsumoRow.swift */,
+				9A2DAAC62474A31C00A4BD3E /* Intento.swift */,
+			);
+			path = Insummos;
+			sourceTree = "<group>";
+		};
+		9A4B8CEB246C34A3001FFC8E /* Lugares */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Lugares;
+			sourceTree = "<group>";
+		};
 		9A907867246B3FAB005FF04C = {
 			isa = PBXGroup;
 			children = (
@@ -64,6 +104,7 @@
 		9A907872246B3FAB005FF04C /* CalculaVirus */ = {
 			isa = PBXGroup;
 			children = (
+				9A4B8CE8246C2BBA001FFC8E /* UI */,
 				9A907873246B3FAB005FF04C /* AppDelegate.swift */,
 				9A907875246B3FAB005FF04C /* SceneDelegate.swift */,
 				9A907877246B3FAB005FF04C /* ViewController.swift */,
@@ -71,8 +112,6 @@
 				9A90787C246B3FAE005FF04C /* Assets.xcassets */,
 				9A90787E246B3FAE005FF04C /* LaunchScreen.storyboard */,
 				9A907881246B3FAE005FF04C /* Info.plist */,
-				9A907887246B4186005FF04C /* InsumosGeneralView.swift */,
-				9A907890246B756A005FF04C /* InsumoDetailView.swift */,
 				9A907889246B4208005FF04C /* Models */,
 			);
 			path = CalculaVirus;
@@ -91,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				9A90788B246B4233005FF04C /* Insumo.swift */,
+				9A4B8CEC246C34C8001FFC8E /* Lugar.swift */,
+				9A31C7A824745BAD00502FE9 /* URLImage.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -99,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				9A90788E246B474A005FF04C /* NetworkingManager.swift */,
+				9A31C7AA24745DD100502FE9 /* ImageLoader.swift */,
 			);
 			path = "Networking Manager";
 			sourceTree = "<group>";
@@ -175,11 +217,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A90788C246B4233005FF04C /* Insumo.swift in Sources */,
+				9A31C7A924745BAD00502FE9 /* URLImage.swift in Sources */,
+				9A31C7AB24745DD100502FE9 /* ImageLoader.swift in Sources */,
+				9A2DAAC92474AD0600A4BD3E /* CircleImage.swift in Sources */,
+				9A4B8CED246C34C8001FFC8E /* Lugar.swift in Sources */,
 				9A907891246B756A005FF04C /* InsumoDetailView.swift in Sources */,
 				9A907878246B3FAB005FF04C /* ViewController.swift in Sources */,
 				9A907874246B3FAB005FF04C /* AppDelegate.swift in Sources */,
 				9A90788F246B474A005FF04C /* NetworkingManager.swift in Sources */,
 				9A907888246B4186005FF04C /* InsumosGeneralView.swift in Sources */,
+				9A2DAAC72474A31C00A4BD3E /* Intento.swift in Sources */,
+				9A11D5D42474688900F1A86B /* InsumoRow.swift in Sources */,
 				9A907876246B3FAB005FF04C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,19 +13,23 @@ import Combine
 
 
 //{
-//         "nombre": "Leche Deslactosada",
-//         "descripcion": "Bebida deslactosada de marca Lala",
-//         "lugar_compra": "Walmart",
-//         "categoria": "Lácteos",
-//         "caducidad": "2020-08-12T00:00:00Z",
-//         "cantidad": "2",
-//         "prioridad": 4,
-//         "duracion_promedio": 3
-//     }
+//    "id": 1,
+//    "nombre": "Mezcal el pescador de sueños",
+//    "marca": "Pescador de sueños",
+//    "descripcion": "Un Mezcal de los dioses",
+//    "lugar_compra": "http://127.0.0.1:8000/lugares/1/",
+//    "categoria": "Elíxir",
+//    "caducidad": "2022-09-03T00:00:00Z",
+//    "cantidad": "1",
+//    "prioridad": 5,
+//    "duracion_promedio": 1234,
+//    "image": "http://127.0.0.1:8000/media/products/None/images_f4XgBiS.jpeg"
+//}
 
 struct Insumo: Decodable & Identifiable {
     var id: Int
     var nombre: String
+    var marca: String
     var descripcion: String
     var lugar_compra: String
     var categoria: String
@@ -33,7 +37,7 @@ struct Insumo: Decodable & Identifiable {
     var cantidad: String
     var prioridad: Int
     var duracion_promedio: Int
-
+    var image:String
 }
 
 struct InsumosResult:Decodable {
