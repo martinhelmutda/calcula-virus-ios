@@ -1,26 +1,25 @@
 //
-//  NetworkingManager.swift
+//  LugaresManager.swift
 //  CalculaVirus
 //
-//  Created by Martin Helmut Dominguez Alvarez on 12/05/20.
+//  Created by Martin Helmut Dominguez Alvarez on 21/05/20.
 //  Copyright © 2020 Martin Helmut Dominguez Alvarez. All rights reserved.
 //
 
 import Foundation
-
-import SwiftUI
 import Combine
+import SwiftUI
 
-class NetworkingManager: ObservableObject {
+class LugaresManager: ObservableObject {
     
-    var didChange = PassthroughSubject<NetworkingManager, Never>()
+    var didChange = PassthroughSubject<LugaresManager, Never>()
     
-    @Published var insumos = [Insumo]()
-
+    @Published var lugares = [Lugar]()
     
     init() {
-//        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"
-        let urlString = "http://127.0.0.1:8000/insumos/"
+//        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
+        
+        let urlString = "http://127.0.0.1:8000/lugares/"
         
         guard let url = URL(string: urlString) else {return}
         
@@ -32,18 +31,24 @@ class NetworkingManager: ObservableObject {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             do{
-                if let insumosData = data{
-                    let insumosResultData = try JSONDecoder().decode(InsumosResult.self, from: insumosData)
+                if let lugaresData = data{
                     
+                    let lugaresResultData = try JSONDecoder().decode(LugaresResult.self, from: lugaresData)
+                    
+                   
                     DispatchQueue.main.async {
-                        self.insumos = insumosResultData.results
+                        self.lugares = lugaresResultData.results
                     }
                 } else {
                     print("No Data")
                 }
             } catch {
-                print("Error")
+                print("ErrorLugar")
             }
         }.resume()
     }
 }
+
+
+
+//http://martinhelmut.pythonanywhere.com/lugares/

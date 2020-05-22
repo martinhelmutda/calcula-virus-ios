@@ -29,8 +29,8 @@ struct URLImage: View {
         
 //        let uiImage = self.imageLoader.downloadedImage!
 //            return Image(uiImage: uiImage).resizable()
-//            
-//        
+//
+//
     }
     
 }

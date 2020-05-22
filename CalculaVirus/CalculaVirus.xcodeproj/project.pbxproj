@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9A11D5D42474688900F1A86B /* InsumoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A11D5D32474688900F1A86B /* InsumoRow.swift */; };
+		9A1510AE2476EC2400CFA81B /* InsumosForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1510AD2476EC2400CFA81B /* InsumosForm.swift */; };
+		9A1510B0247725CD00CFA81B /* LugaresManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1510AF247725CD00CFA81B /* LugaresManager.swift */; };
 		9A2DAAC72474A31C00A4BD3E /* Intento.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAAC62474A31C00A4BD3E /* Intento.swift */; };
 		9A2DAAC92474AD0600A4BD3E /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2DAAC82474AD0600A4BD3E /* CircleImage.swift */; };
 		9A31C7A924745BAD00502FE9 /* URLImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A31C7A824745BAD00502FE9 /* URLImage.swift */; };
@@ -27,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		9A11D5D32474688900F1A86B /* InsumoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsumoRow.swift; sourceTree = "<group>"; };
+		9A1510AD2476EC2400CFA81B /* InsumosForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsumosForm.swift; sourceTree = "<group>"; };
+		9A1510AF247725CD00CFA81B /* LugaresManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LugaresManager.swift; sourceTree = "<group>"; };
 		9A2DAAC62474A31C00A4BD3E /* Intento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Intento.swift; sourceTree = "<group>"; };
 		9A2DAAC82474AD0600A4BD3E /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		9A31C7A824745BAD00502FE9 /* URLImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImage.swift; sourceTree = "<group>"; };
@@ -74,6 +78,7 @@
 				9A2DAAC82474AD0600A4BD3E /* CircleImage.swift */,
 				9A11D5D32474688900F1A86B /* InsumoRow.swift */,
 				9A2DAAC62474A31C00A4BD3E /* Intento.swift */,
+				9A1510AD2476EC2400CFA81B /* InsumosForm.swift */,
 			);
 			path = Insummos;
 			sourceTree = "<group>";
@@ -141,6 +146,7 @@
 			children = (
 				9A90788E246B474A005FF04C /* NetworkingManager.swift */,
 				9A31C7AA24745DD100502FE9 /* ImageLoader.swift */,
+				9A1510AF247725CD00CFA81B /* LugaresManager.swift */,
 			);
 			path = "Networking Manager";
 			sourceTree = "<group>";
@@ -216,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A1510B0247725CD00CFA81B /* LugaresManager.swift in Sources */,
 				9A90788C246B4233005FF04C /* Insumo.swift in Sources */,
 				9A31C7A924745BAD00502FE9 /* URLImage.swift in Sources */,
 				9A31C7AB24745DD100502FE9 /* ImageLoader.swift in Sources */,
@@ -228,6 +235,7 @@
 				9A907888246B4186005FF04C /* InsumosGeneralView.swift in Sources */,
 				9A2DAAC72474A31C00A4BD3E /* Intento.swift in Sources */,
 				9A11D5D42474688900F1A86B /* InsumoRow.swift in Sources */,
+				9A1510AE2476EC2400CFA81B /* InsumosForm.swift in Sources */,
 				9A907876246B3FAB005FF04C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

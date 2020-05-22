@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CalculaVirus.xcodeproj">
+      location = "self:/Users/martinh/Desktop/TecMonterrey/Apps Moviles/calcula-virus-ios/CalculaVirus/CalculaVirus.xcodeproj">
    </FileRef>
 </Workspace>
