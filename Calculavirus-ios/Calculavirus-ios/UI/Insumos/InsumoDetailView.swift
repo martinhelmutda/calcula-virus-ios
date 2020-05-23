@@ -16,7 +16,7 @@ struct InsumoDetailView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading) {
-                CircleImage(image: URLImage(url: insumo.image)).frame(width: 100, height: 100)
+                CircleImage(image: ImageView(withURL: insumo.image!)).frame(width: 100,height: 100)
                 Text(insumo.nombre)
                     .font(.title)
 

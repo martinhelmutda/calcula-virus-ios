@@ -11,30 +11,20 @@ import SwiftUI
 import Combine
 
 class ImageLoader: ObservableObject {
-    
-    var downloadedImage: UIImage?
-    let didChange = PassthroughSubject<ImageLoader?, Never>()
-    
-    func load(url: String) {
-        
-        guard let imageURL = URL(string: url) else {
-            fatalError("ImageURL is not correct!")
+    var dataPublisher = PassthroughSubject<Data, Never>()
+    var data = Data() {
+        didSet {
+            dataPublisher.send(data)
         }
-        
-        URLSession.shared.dataTask(with: imageURL) { data, response, error in
-            
-            guard let dataImg = data, error == nil else {
-                DispatchQueue.main.async {
-                     self.didChange.send(nil)
-                }
-                return
-            }
-            self.downloadedImage = UIImage(data: dataImg)
-            DispatchQueue.main.async {
-                self.didChange.send(self)
-            }
-            
-        }.resume()
-        
+     }
+init(urlString:String) {
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        guard let data = data else { return }
+        DispatchQueue.main.async {
+           self.data = data
+        }
     }
+    task.resume()
+  }
 }

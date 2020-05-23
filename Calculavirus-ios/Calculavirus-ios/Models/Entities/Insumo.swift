@@ -29,15 +29,15 @@ import Combine
 struct Insumo: Decodable & Identifiable {
     var id: Int
     var nombre: String
-    var marca: String
-    var descripcion: String
+    var marca: String?
+    var descripcion: String?
     var lugar_compra: String
-    var categoria: String
-    var caducidad: String
+    var categoria: String?
+    var caducidad: String?
     var cantidad: String
     var prioridad: Int
     var duracion_promedio: Int
-    var image:String
+    var image:String?
 }
 
 struct InsumosResult:Decodable {

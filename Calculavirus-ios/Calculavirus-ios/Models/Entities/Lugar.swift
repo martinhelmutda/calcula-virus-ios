@@ -15,8 +15,8 @@ import Combine
 struct Lugar: Decodable & Identifiable {
     var id: Int
     var nombre: String
-    var descripcion: String
-    var image:String
+    var descripcion: String?
+    var image:String?
 }
 
 struct LugaresResult:Decodable {

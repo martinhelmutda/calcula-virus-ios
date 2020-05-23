@@ -14,7 +14,9 @@ struct InsumoRow: View {
 
     var body: some View {
         HStack {
-            URLImage(url: insumo.image, placeholder:  Image(systemName: "camera")).frame(width: 50, height: 50)
+            ImageView(withURL: insumo.image!)
+                .frame(width: 50,height: 50)
+                .clipped()
             Text(insumo.nombre)
             Spacer()
         }

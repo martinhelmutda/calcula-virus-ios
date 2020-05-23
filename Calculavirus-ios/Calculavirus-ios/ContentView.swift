@@ -12,9 +12,9 @@ struct ContentView: View {
     var body: some View {
         Group{
 //            InsumosFormView()
-//            InsumosGeneralView()
+            InsumosGeneralView()
             
-            PruebaView()
+//            PruebaView()
         }
     }
 }

@@ -10,7 +10,7 @@
 import SwiftUI
 
 struct CircleImage: View {
-    var image: URLImage
+    var image: ImageView
 
     var body: some View {
         image
@@ -22,7 +22,7 @@ struct CircleImage: View {
 
 struct CircleImage_Previews: PreviewProvider {
     static var previews: some View {
-        let imageFromURL = URLImage(url:"http://127.0.0.1:8000/media/products/None/images_f4XgBiS.jpeg")
+        let imageFromURL = ImageView(withURL: "http://127.0.0.1:8000/media/products/None/images_f4XgBiS.jpeg")
         return CircleImage(image:imageFromURL)
     }
 }
