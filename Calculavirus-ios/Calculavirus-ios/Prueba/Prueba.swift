@@ -1,83 +1,81 @@
-////
-////  Prueba.swift
-////  Calculavirus-ios
-////
-////  Created by Martin Helmut Dominguez Alvarez on 22/05/20.
-////  Copyright © 2020 Martin Helmut Dominguez Alvarez. All rights reserved.
-////
-//
-//
-//
-//import Combine
-//import Foundation
-//import SwiftUI
-//
-//class ImageLoaderFun: ObservableObject {
-//    var dataPublisher = PassthroughSubject<Data, Never>()
-//    var data = Data() {
-//        didSet {
-//            dataPublisher.send(data)
-//        }
-//     }
-//init(urlString:String) {
-//        guard let url = URL(string: urlString) else { return }
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//        guard let data = data else { return }
-//        DispatchQueue.main.async {
-//           self.data = data
-//        }
-//    }
-//    task.resume()
-//  }
-//}
-//
-//struct ImageView: View {
-//    @ObservedObject var imageLoader:ImageLoaderFun
-//    @State var image:UIImage = UIImage()
-//init(withURL url:String) {
-//        imageLoader = ImageLoaderFun(urlString:url)
-//    }
-//var body: some View {
-//    VStack {
-//        Image(uiImage: image)
-//            .resizable()
-//            .aspectRatio(contentMode: .fit)
-//            .frame(width:100, height:100)
-//    }.onReceive(imageLoader.dataPublisher) { data in
-//        self.image = UIImage(data: data) ?? UIImage()
-//    }
-//  }
-//}
-//struct ImageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ImageView(withURL: "")
-//    }
-//}
-//
-//struct DataRow: View {
-//    var data: Insumo
-//    
-//    var body: some View {
-//        HStack {
-//            ImageView(withURL: data.image)
-//            Text(verbatim: data.image)
-//        }
-//    }
-//}
-//
-//struct PruebaView : View {
-//    @ObservedObject var networkingManager = NetworkingManager()
-//
-//    var body: some View {
-//        List(networkingManager.insumos) { post in
-//            DataRow(data: post) // Get image
-//        }
-//    }
-//}
-//
-//
-//struct PruebaView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PruebaView()
-//    }
-//}
+import Combine
+import Foundation
+import SwiftUI
+
+struct ContentViewPhoto: View {
+    
+    @State var image: Image? = nil
+    @State var showCaptureImageView: Bool = false
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                Button(action: {
+                  self.showCaptureImageView.toggle()
+                }) {
+                    Text("Choose photos")
+                }
+                image?.resizable()
+                  .frame(width: 250, height: 250)
+                  .clipShape(Circle())
+                  .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                  .shadow(radius: 10)
+            }
+            
+            if (showCaptureImageView) {
+                   CaptureImageView(isShown: $showCaptureImageView, image: $image)
+                 }
+        }
+    }
+}
+
+struct CaptureImageView {
+  /// MARK: - Properties
+  @Binding var isShown: Bool
+  @Binding var image: Image?
+  
+  func makeCoordinator() -> Coordinator {
+    return Coordinator(isShown: $isShown, image: $image)
+  }
+}
+
+extension CaptureImageView: UIViewControllerRepresentable {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<CaptureImageView>) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+       if !UIImagePickerController.isSourceTypeAvailable(.camera){
+           picker.sourceType = .photoLibrary
+       } else {
+           picker.sourceType = .camera
+       }
+       return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<CaptureImageView>){
+        
+    }
+}
+
+class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+  @Binding var isCoordinatorShown: Bool
+  @Binding var imageInCoordinator: Image?
+  init(isShown: Binding<Bool>, image: Binding<Image?>) {
+    _isCoordinatorShown = isShown
+    _imageInCoordinator = image
+  }
+  func imagePickerController(_ picker: UIImagePickerController,
+                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+     guard let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+     imageInCoordinator = Image(uiImage: unwrapImage)
+     isCoordinatorShown = false
+  }
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+     isCoordinatorShown = false
+  }
+}
+
+struct ContentViewPhoto_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentViewPhoto()
+    }
+}

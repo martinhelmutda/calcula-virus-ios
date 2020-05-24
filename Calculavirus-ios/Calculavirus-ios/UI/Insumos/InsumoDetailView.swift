@@ -15,21 +15,28 @@ struct InsumoDetailView: View {
     
     var body: some View {
         VStack {
+            CircleImage(image: ImageView(withURL: insumo.image!)).frame(width: 200,height: 200)
+            
             VStack(alignment: .leading) {
-                CircleImage(image: ImageView(withURL: insumo.image!)).frame(width: 100,height: 100)
+                
                 Text(insumo.nombre)
                     .font(.title)
 
                 HStack(alignment: .top) {
-                    Text("Joshua Tree National Park")
+                    Text(insumo.marca!)
                         .font(.subheadline)
                     Spacer()
                     Text("California")
                         .font(.subheadline)
                 }
+                
+            }.padding()
+            Section{
+                VStack(alignment: .leading){
+                    Text(insumo.descripcion ?? "").font(.body)
+                }
             }
-            .padding()
-
+            
             Spacer()
         }
     }

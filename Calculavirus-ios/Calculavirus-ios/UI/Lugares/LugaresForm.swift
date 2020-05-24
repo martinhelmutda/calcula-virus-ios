@@ -58,14 +58,40 @@ struct LugaresForm: View {
     
     @State private var nombre = ""
     @State private var descripcion = ""
+    @State private var image: Image? = nil
+    @State private var showCaptureImageView: Bool = false
     
     var manager = HttpAuth()
     
     var body: some View {
         NavigationView{
+          
             Form{
                 TextField("Nombre", text: $nombre)
                 TextField("Descripcion", text: $descripcion)
+                
+                Section{
+                    VStack {
+                        Button(action: {
+                            self.showCaptureImageView.toggle()
+                        }) {
+                            Text("Choose photos")
+                        }
+                        
+                        .sheet(isPresented: $showCaptureImageView) {
+                            CaptureImageView(isShown: self.$showCaptureImageView, image: self.$image)
+                        }
+
+                        image?
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    }
+
+//                    if (showCaptureImageView) {
+//                        CaptureImageView(isShown: $showCaptureImageView, image: $image)
+//                    }
+                }
+                
                 
                 Section{
                     Button("Guardar", action: {
@@ -74,7 +100,9 @@ struct LugaresForm: View {
                         self.manager.checkDetails(nombre: self.nombre, descripcion: self.descripcion)
                    })
                 }
+                
             }
+                
         .navigationBarTitle("Registrar Lugar")
         }
     }
