@@ -14,10 +14,10 @@ struct  ServerMessage : Decodable {
     let status, message : String?
 }
 
-struct LugarSend {
+struct LugarSend : Codable {
     let nombre : String
     let descripcion : String
-    let image : NSData?
+
 }
 
 class HttpAuth: ObservableObject {
@@ -31,6 +31,7 @@ class HttpAuth: ObservableObject {
     
     func checkDetails(nombre: String, descripcion: String, image: UIImage?) {
         let base64String: String
+        let dataRaw: LugarSend
         let body:[String : Any]
         
         let urlString = "http://127.0.0.1:8000/lugares/"
@@ -45,28 +46,35 @@ class HttpAuth: ObservableObject {
 //                       "nombre" : nombre,
 //                       "descripcion" : descripcion
 //                   ]
-            
+            dataRaw  = LugarSend(nombre: nombre, descripcion: descripcion)
             
         }else{
              base64String = dataImage!.base64EncodedString(options: .lineLength64Characters)
                 
-            body = [
-                "nombre" : nombre,
-                "descripcion" : descripcion,
-                "image" : base64String
-            ]
+//            body = [
+//                "nombre" : nombre,
+//                "descripcion" : descripcion,
+//                "image" : base64String
+//            ]
+            
+            dataRaw  = LugarSend(nombre: nombre, descripcion: descripcion)
+            
         }
         
         print(dataImage)
         
         
         
-        print(body)
+//        print(body)
         
-        let finalBody = try! JSONSerialization.data(withJSONObject: body)
-        guard let uploadData = try? JSONEncoder().encode(body) else {
+//        let finalBody = try! JSONSerialization.data(withJSONObject: body)
+        
+        guard let uploadData = try? JSONEncoder().encode(dataRaw) else {
             return
         }
+        
+        print(dataRaw
+        )
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -87,6 +95,7 @@ class HttpAuth: ObservableObject {
 //        }.resume()
         
         let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
+            print(data)
             if let error = error {
                 print ("error: \(error)")
                 return
