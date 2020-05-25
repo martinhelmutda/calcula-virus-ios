@@ -17,7 +17,7 @@ struct  ServerMessage : Decodable {
 struct LugarSend : Codable {
     let nombre : String
     let descripcion : String
-
+//    let image : String
 }
 
 class HttpAuth: ObservableObject {
@@ -73,8 +73,7 @@ class HttpAuth: ObservableObject {
             return
         }
         
-        print(dataRaw
-        )
+//        print(dataRaw)
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
