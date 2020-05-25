@@ -63,20 +63,8 @@ struct InsumosFormView: View {
                     ForEach(lugaresManager.lugares) { lugar in Text(lugar.nombre)
                     }
                 }
-//                Stepper("Enter your age \(form.cantidad)", onIncrement: {
-//                    self.age += 1
-//                    print("Adding to age \(self.form.cantidad)")
-//                }, onDecrement: {
-//                    self.age -= 1
-//                    print("Subtracting from age \(self.form.cantidad)")
-//                })
                 
                 Stepper("Ingresa la cantidad \(cantidad)", value: $cantidad, in: 0...20)
-//
-//                Text("Cantidad actual: \(form.cantidad)")
-//                .onReceive(imageLoader.dataPublisher) { data in
-//                    self.image = UIImage(data: data) ?? UIImage()
-//                }
                 
             }.navigationBarTitle("Registrar Insumos")
         }
