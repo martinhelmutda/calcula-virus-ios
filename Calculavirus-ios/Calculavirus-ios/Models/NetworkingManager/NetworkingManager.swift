@@ -10,10 +10,34 @@ import Foundation
 
 import SwiftUI
 import Combine
+import Alamofire
+import SwiftyJSON
 
-class NetworkingManager: ObservableObject {
+class NetworkingManager {
+    static func uploadSomeData(_ url: String, params: [String : Any], header: [String:String]) {
+           let httpHeaders = HTTPHeaders(header)
+           AF.upload(multipartFormData: { multiPart in
+               for p in params {
+                   multiPart.append("\(p.value)".data(using: String.Encoding.utf8)!, withName: p.key)
+               }
+           }, to: url, method: .post, headers: httpHeaders) .uploadProgress(queue: .main, closure: { progress in
+               print("Upload Progress: \(progress.fractionCompleted)")
+           }).responseString(completionHandler: { data in
+               print("upload finished: \(data)")
+           }).response { (response) in
+               switch response.result {
+               case .success(let result):
+                   print("upload success result: \(String(describing: result))")
+               case .failure(let err):
+                   print("upload err: \(err)")
+               }
+           }
+       }
+}
+
+class GetInsumoManager: ObservableObject {
     
-    var didChange = PassthroughSubject<NetworkingManager, Never>()
+    var didChange = PassthroughSubject<GetInsumoManager, Never>()
     
     @Published var insumos = [Insumo]()
 

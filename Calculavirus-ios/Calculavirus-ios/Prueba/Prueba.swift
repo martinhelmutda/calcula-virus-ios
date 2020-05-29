@@ -1,88 +1,44 @@
 import Combine
 import Foundation
 import SwiftUI
+import GoogleSignIn
 
-struct ContentViewPhoto: View {
-    
-    @State var image: UIImage? = nil
-    @State var showCaptureImageView: Bool = false
+
+
+struct LoginView: View {
+    var profile = GIDProfileData()
     
     var body: some View {
-        ZStack {
-            VStack {
-                Button(action: {
-                    self.showCaptureImageView.toggle()
-                }) {
-                    Text("Choose photos")
-                }
-                if(image != nil){
-                    Image(uiImage: image!)
-                        .resizable()
-                        .frame(width: 250, height: 250)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                        .shadow(radius: 10)
-                }
-            }
+        VStack(alignment: .leading){
+            google().frame(width: 120,height: 50)
             
-            if (showCaptureImageView) {
-                CaptureImageView(isShown: $showCaptureImageView, image: $image)
-            }
+            Text("Hola")
+            
         }
     }
 }
 
-struct CaptureImageView {
-    /// MARK: - Properties
-    @Binding var isShown: Bool
-    @Binding var image: UIImage?
-    
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(isShown: $isShown, image: $image)
-    }
-}
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}
 
-extension CaptureImageView: UIViewControllerRepresentable {
-    func makeUIViewController(context: UIViewControllerRepresentableContext<CaptureImageView>) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.delegate = context.coordinator
-        if !UIImagePickerController.isSourceTypeAvailable(.camera){
-            picker.sourceType = .photoLibrary
-        } else {
-            picker.sourceType = .camera
-        }
-        return picker
-    }
+
+struct google : UIViewRepresentable {
     
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<CaptureImageView>){
+
+    func makeUIView(context: UIViewRepresentableContext<google>) -> GIDSignInButton {
         
-    }
-}
-
-class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    @Binding var isCoordinatorShown: Bool
-    @Binding var imageInCoordinator: UIImage?
-    
-    init(isShown: Binding<Bool>, image: Binding<UIImage?>) {
-        _isCoordinatorShown = isShown
-        _imageInCoordinator = image
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let unwrapImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else { return }
+        let button = GIDSignInButton()
+        button.colorScheme = .dark
+        GIDSignIn.sharedInstance()?.presentingViewController = UIApplication.shared.windows.last?.rootViewController
         
-        //    Observa
-        imageInCoordinator = unwrapImage
-        isCoordinatorShown = false
+        return button
     }
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        isCoordinatorShown = false
+    func updateUIView(_ uiView: GIDSignInButton, context: UIViewRepresentableContext<google>) {
+        print("HOLA")
     }
 }
+ 
 
-struct ContentViewPhoto_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentViewPhoto()
-    }
-}

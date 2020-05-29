@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InsumosGeneralView: View {
-    @ObservedObject var networkingManager = NetworkingManager()
+    @ObservedObject var networkingManager = GetInsumoManager()
 //    @ObservedObject private var imageLoader: DataLoader
     
     public init() {

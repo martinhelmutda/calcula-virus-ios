@@ -7,14 +7,20 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import FirebaseAuth
 
 struct ContentView: View {
+    
     var body: some View {
         Group{
-//            InsumosFormView()
-//            InsumosGeneralView()
             
-            ContentViewPhoto()
+            if Auth.auth().currentUser != nil {
+                 Home()
+
+            }else{
+                 LoginView()
+            }
         }
     }
 }

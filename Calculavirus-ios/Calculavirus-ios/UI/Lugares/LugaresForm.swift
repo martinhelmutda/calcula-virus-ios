@@ -21,7 +21,7 @@ struct LugarSend {
 
 class HttpAuth: ObservableObject {
     var didChange = PassthroughSubject<HttpAuth, Never>()
-
+    
     
     var authenticated = false {
         didSet {
@@ -29,8 +29,8 @@ class HttpAuth: ObservableObject {
         }
     }
     
-    func checkDetails(lugar: LugarSend) {
-
+    func checkDetails(lugar: LugarSend, parameters: [String:Any]) {
+        
         let urlString = "http://127.0.0.1:8000/lugares/"
         let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
         
@@ -39,12 +39,13 @@ class HttpAuth: ObservableObject {
             "Content-Type": "multipart/form-data"
         ]
         
-        let parameters: [String:Any] = [
-            "nombre":lugar.nombre,
-            "descripcion":lugar.descripcion
-        ]
-       
-        ImageUploader.uploadPhoto(urlString, image: lugar.image ?? UIImage(), params: parameters, header: headers)
+        if(lugar.image == nil){
+            
+            NetworkingManager.uploadSomeData(urlString, params: parameters, header: headers)
+        }else{
+            ImageUploader.uploadPhoto(urlString, image: lugar.image, params: parameters, header: headers)
+        }
+        
         
     }
 }
@@ -60,36 +61,49 @@ struct LugaresForm: View {
     
     var body: some View {
         NavigationView{
-            Form{
-                
-                TextField("Nombre", text: $nombre)
-                TextField("Descripcion", text: $descripcion)
-                
-                Section{
-                    VStack {
-                        Button(action: {
-                            self.showCaptureImageView.toggle()
-                        }) {
-                            Text("Imagen (opcional)")
-                        }
-                            
-                        .sheet(isPresented: $showCaptureImageView) {
-                            CaptureImageView(isShown: self.$showCaptureImageView, image: self.$image)
-                        }
-                        if(image != nil){
-                            Image(uiImage: image ?? UIImage())
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        }
+            VStack(alignment: .leading){
+                Button(action: {
+                    self.showCaptureImageView.toggle()
+                }) {
+                    if(image == nil){
+                        HStack(spacing: 10) {
+                            Spacer()
+                            Image(systemName: "photo")
+                            Text("Agregar Imagen")
+                                .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 100)
+                            Spacer()
+                        }.background(Color.gray.opacity(0.4))
                     }
                 }
-                
-                
-                Section{
-                    Button("Guardar", action: {
-                        let dataLugar = LugarSend(nombre: self.nombre, descripcion: self.descripcion, image: self.image ?? UIImage())
-                        self.manager.checkDetails(lugar: dataLugar)
-                    })
+                    
+                .sheet(isPresented: $showCaptureImageView) {
+                    CaptureImageView(isShown: self.$showCaptureImageView, image: self.$image)
+                }
+                if(image != nil){
+                    Image(uiImage: image ?? UIImage())
+                        .resizable()
+                        .aspectRatio(0.75,contentMode: .fill)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .center)
+                        .clipped()
+                }
+                Form{
+                    TextField("Nombre", text: $nombre)
+                    TextField("Descripcion", text: $descripcion)
+                    
+                    
+                    
+                    
+                    Section{
+                        Button("Guardar", action: {
+                            let dataLugar = LugarSend(nombre: self.nombre, descripcion: self.descripcion, image: self.image)
+                            
+                            let parameters: [String:Any] = [
+                                "nombre":dataLugar.nombre,
+                                "descripcion":dataLugar.descripcion
+                            ]
+                            self.manager.checkDetails(lugar: dataLugar, parameters: parameters)
+                        })
+                    }
                 }
             }
                 

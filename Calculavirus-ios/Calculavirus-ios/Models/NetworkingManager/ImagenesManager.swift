@@ -40,7 +40,7 @@ class ImageUploader {
                 multiPart.append("\(p.value)".data(using: String.Encoding.utf8)!, withName: p.key)
             }
             if(image != nil){
-                multiPart.append(image.jpegData(compressionQuality: 0.4)! ?? Data(), withName: "image", fileName: "file.jpg", mimeType: "image/jpg")
+                multiPart.append(image?.jpegData(compressionQuality: 0.4) ?? Data(), withName: "image", fileName: "file.jpg", mimeType: "image/jpg")
             }
             
         }, to: url, method: .post, headers: httpHeaders) .uploadProgress(queue: .main, closure: { progress in
