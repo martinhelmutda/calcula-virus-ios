@@ -11,16 +11,28 @@ import GoogleSignIn
 import FirebaseAuth
 
 struct ContentView: View {
+    @EnvironmentObject var userData: UserData
+
+    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     
     var body: some View {
-        Group{
+        VStack{
             
-            if Auth.auth().currentUser != nil {
+            if status {
                  Home()
 
             }else{
                  LoginView()
             }
+        }.animation(.spring())
+            .onAppear{
+                NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
+                    (_) in
+                    
+                    let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                    self.status = status
+                    
+                }
         }
     }
 }

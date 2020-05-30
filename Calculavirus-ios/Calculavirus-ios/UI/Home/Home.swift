@@ -12,13 +12,23 @@ import FirebaseAuth
 
 struct Home: View {
 
+    @EnvironmentObject var userData: UserData
     
     var body: some View {
         VStack{
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             
             Button(action:{
-                GIDSignIn.sharedInstance().signOut()
+                let firebaseAuth = Auth.auth()
+                do {
+                  try firebaseAuth.signOut()
+                    print("All good")
+//                    self.userData.loggedIn = false
+                    UserDefaults.standard.set(false, forKey: "status")
+                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                } catch let signOutError as NSError {
+                  print ("Error signing out: %@", signOutError)
+                }
             } ){
                 Text("Cerrar sesión")
             }

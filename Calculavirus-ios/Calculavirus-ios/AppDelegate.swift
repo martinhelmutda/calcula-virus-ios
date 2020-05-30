@@ -12,9 +12,7 @@ import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-    
-    
-    
+ 
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -64,7 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             return
         }
         
-        print("user" + (res?.user.email)!)
+        print("user " + (res?.user.email)!)
+        UserDefaults.standard.set(true, forKey: "status")
+        NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
     })
    }
 
