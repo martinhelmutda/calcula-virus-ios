@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import FirebaseAuth
 
 class LugaresManager: ObservableObject {
     
@@ -19,7 +20,7 @@ class LugaresManager: ObservableObject {
     init() {
 //        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
         
-        let urlString = "http://127.0.0.1:8000/lugares/"
+        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=\(String(describing: Auth.auth().currentUser?.email))"
         
         guard let url = URL(string: urlString) else {return}
         

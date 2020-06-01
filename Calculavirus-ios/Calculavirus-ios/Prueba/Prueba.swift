@@ -10,7 +10,6 @@ class UserData: ObservableObject {
 
 
 struct LoginView: View {
-    var profile = GIDProfileData()
     
     var body: some View {
         VStack(alignment: .leading){

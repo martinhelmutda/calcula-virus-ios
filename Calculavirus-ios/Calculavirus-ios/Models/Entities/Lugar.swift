@@ -17,6 +17,7 @@ struct Lugar: Decodable & Identifiable {
     var nombre: String
     var descripcion: String?
     var image:String?
+    var user: String?
 }
 
 struct LugaresResult:Decodable {

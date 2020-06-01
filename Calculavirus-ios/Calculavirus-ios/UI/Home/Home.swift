@@ -7,38 +7,54 @@
 //
 
 import SwiftUI
-import GoogleSignIn
-import FirebaseAuth
+
 
 struct Home: View {
-
-    @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack{
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+           VStack {
+               NavigationLink(destination: InsumosGeneralView()) {
+                ButtonHome(title: "Checklist", colorBack: Color( red: 16/255, green: 216/255, blue: 184/255))
+               }
             
-            Button(action:{
-                let firebaseAuth = Auth.auth()
-                do {
-                  try firebaseAuth.signOut()
-                    print("All good")
-//                    self.userData.loggedIn = false
-                    UserDefaults.standard.set(false, forKey: "status")
-                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                } catch let signOutError as NSError {
-                  print ("Error signing out: %@", signOutError)
+                NavigationLink(destination: InsumosGeneralView()) {
+                    ButtonHome(title: "Insumos", colorBack: Color( red: 248/255, green: 39/255, blue: 22/255))
                 }
-            } ){
-                Text("Cerrar sesión")
+//
+                NavigationLink(destination: LugaresForm()) {
+                    ButtonHome(title: "Lugares de compra", colorBack: Color( red: 251/255, green: 215/255, blue: 4/255))
+                }
+           }.navigationBarTitle("Calculavirus")
             }
+
+    }
+}
+
+
+struct ButtonHome: View {
+    var title: String
+    var colorBack: Color
+    
+    var body: some View {
+
+       Text(title)
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: 150, alignment: .center)
+       .background(colorBack)
+//        .color(Color.white)
+       .foregroundColor(Color.white)
+        .font(Font.title.weight(.heavy))
+        .cornerRadius(25)
+        .shadow(radius: 10)
+        .padding()
             
-            if(Auth.auth().currentUser?.displayName != nil) {
-                Text(String((Auth.auth().currentUser?.displayName)!))
-            } else {
-                Text("Doesn’t contain a value.")
-            }
-        }
+    }
+}
+
+
+struct ButtonHome_Previews: PreviewProvider {
+    static var previews: some View {
+        ButtonHome(title: "Insumos", colorBack: Color( red: 16/255, green: 216/255, blue: 184/255))
     }
 }
 

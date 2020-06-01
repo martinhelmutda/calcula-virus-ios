@@ -12,6 +12,7 @@ import SwiftUI
 import Combine
 import Alamofire
 import SwiftyJSON
+import FirebaseAuth
 
 class NetworkingManager {
     static func uploadSomeData(_ url: String, params: [String : Any], header: [String:String]) {
@@ -43,8 +44,10 @@ class GetInsumoManager: ObservableObject {
 
     
     init() {
+        let userEmail = Auth.auth().currentUser?.email
 //        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"
-        let urlString = "http://127.0.0.1:8000/insumos/"
+//        let urlString = "http://127.0.0.1:8000/insumos/get_insumos_by_user/??user_email==\(String(describing: userEmail))"
+        let urlString = "http://127.0.0.1:8000/insumos/get_insumos_by_user/?user_email=a01701813@itesm.mx"
         
         guard let url = URL(string: urlString) else {return}
         

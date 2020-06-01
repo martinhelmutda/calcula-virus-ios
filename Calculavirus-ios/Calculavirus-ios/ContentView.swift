@@ -18,20 +18,24 @@ struct ContentView: View {
     var body: some View {
         VStack{
             
+//             Home()
+            
             if status {
                  Home()
 
             }else{
                  LoginView()
             }
-        }.animation(.spring())
+        }
+        .animation(.spring())
             .onAppear{
                 NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
                     (_) in
-                    
-                    let status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-                    self.status = status
-                    
+//                    Esto está dando problemas
+
+                    let currentStatus = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                    self.status = currentStatus
+
                 }
         }
     }

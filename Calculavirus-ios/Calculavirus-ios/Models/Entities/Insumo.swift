@@ -24,6 +24,7 @@ import Combine
 //    "prioridad": 5,
 //    "duracion_promedio": 1234,
 //    "image": "http://127.0.0.1:8000/media/products/None/images_f4XgBiS.jpeg"
+//    "user": "http://127.0.0.1:8000/users/1/"
 //}
 
 struct Insumo: Decodable & Identifiable {
@@ -38,6 +39,7 @@ struct Insumo: Decodable & Identifiable {
     var prioridad: Int
     var duracion_promedio: Int
     var image:String?
+    var user:String
 }
 
 struct InsumosResult:Decodable {
