@@ -12,34 +12,23 @@ import FirebaseAuth
 
 struct ContentView: View {
     @EnvironmentObject var userData: UserData
-
+    
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    
+    let statusChangeRedraw = NotificationCenter.default.publisher(for: Notification.Name("statusChange"))
     
     var body: some View {
         VStack{
-            
-//             Home()
-            
-            if status {
-                 Home()
-
-            }else{
-                 LoginView()
-            }
+            if status { Home() }
+            else{ LoginView() }
         }
-        .animation(.spring())
-            .onAppear{
-                NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
-                    (_) in
-//                    Esto está dando problemas
-
-                    let currentStatus = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
-                    self.status = currentStatus
-
-                }
+        .onReceive(statusChangeRedraw){notification in
+            let currentStatus = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+            self.status = currentStatus
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

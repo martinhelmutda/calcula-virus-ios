@@ -11,12 +11,14 @@ import Combine
 import Foundation
 import Alamofire
 import SwiftyJSON
+import FirebaseAuth
 
 
 struct LugarSend {
     let nombre : String
     let descripcion : String
     let image : UIImage?
+    let user : String
 }
 
 class HttpAuth: ObservableObject {
@@ -60,55 +62,52 @@ struct LugaresForm: View {
     var manager = HttpAuth()
     
     var body: some View {
-        NavigationView{
-            VStack(alignment: .leading){
-                Button(action: {
-                    self.showCaptureImageView.toggle()
-                }) {
-                    if(image == nil){
-                        HStack(spacing: 10) {
-                            Spacer()
-                            Image(systemName: "photo")
-                            Text("Agregar Imagen")
-                                .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 100)
-                            Spacer()
-                        }.background(Color.gray.opacity(0.4))
-                    }
-                }
-                    
-                .sheet(isPresented: $showCaptureImageView) {
-                    CaptureImageView(isShown: self.$showCaptureImageView, image: self.$image)
-                }
-                if(image != nil){
-                    Image(uiImage: image ?? UIImage())
-                        .resizable()
-                        .aspectRatio(0.75,contentMode: .fill)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .center)
-                        .clipped()
-                }
-                Form{
-                    TextField("Nombre", text: $nombre)
-                    TextField("Descripcion", text: $descripcion)
-                    
-                    
-                    
-                    
-                    Section{
-                        Button("Guardar", action: {
-                            let dataLugar = LugarSend(nombre: self.nombre, descripcion: self.descripcion, image: self.image)
-                            
-                            let parameters: [String:Any] = [
-                                "nombre":dataLugar.nombre,
-                                "descripcion":dataLugar.descripcion
-                            ]
-                            self.manager.checkDetails(lugar: dataLugar, parameters: parameters)
-                        })
-                    }
+        VStack(alignment: .leading){
+            Button(action: {
+                self.showCaptureImageView.toggle()
+            }) {
+                if(image == nil){
+                    HStack(spacing: 10) {
+                        Spacer()
+                        Image(systemName: "photo")
+                        Text("Agregar Imagen")
+                            .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 100)
+                        Spacer()
+                    }.background(Color.gray.opacity(0.4))
                 }
             }
                 
-            .navigationBarTitle("Registrar Lugar")
+            .sheet(isPresented: $showCaptureImageView) {
+                CaptureImageView(isShown: self.$showCaptureImageView, image: self.$image)
+            }
+            if(image != nil){
+                Image(uiImage: image ?? UIImage())
+                    .resizable()
+                    .aspectRatio(0.75,contentMode: .fill)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .center)
+                    .clipped()
+            }
+            Form{
+                TextField("Nombre", text: $nombre)
+                TextField("Descripcion", text: $descripcion)
+                
+                Section{
+                    Button("Guardar", action: {
+                        let userEmail = Auth.auth().currentUser!.email
+                        let dataLugar = LugarSend(nombre: self.nombre, descripcion: self.descripcion, image: self.image, user: userEmail!)
+                        
+                        let parameters: [String:Any] = [
+                            "nombre":dataLugar.nombre,
+                            "descripcion":dataLugar.descripcion,
+                            "user":dataLugar.user
+                        ]
+                        self.manager.checkDetails(lugar: dataLugar, parameters: parameters)
+                    })
+                }
+            }
         }
+            
+        .navigationBarTitle("Registrar Lugar")
     }
 }
 

@@ -12,17 +12,22 @@ struct InsumosGeneralView: View {
     @ObservedObject var networkingManager = GetInsumoManager()
     
     public init() {
-//       imageLoader = DataLoader(resourseURL: imageURL)
-   }
+        //       imageLoader = DataLoader(resourseURL: imageURL)
+    }
     
     var body: some View {
-            List(networkingManager.insumos){ insumo in
-                NavigationLink(destination: InsumoDetailView(insumo: insumo)) {
-                    InsumoRow(insumo: insumo)
-//                    URLImage(url: insumo.image)
-                }
+        List(networkingManager.insumos){ insumo in
+            NavigationLink(destination: InsumoDetailView(insumo: insumo)) {
+                InsumoRow(insumo: insumo)
+                //                    URLImage(url: insumo.image)
             }
+        }
         .navigationBarTitle("Insumos")
+        .navigationBarItems(trailing:
+            NavigationLink(destination: InsumosFormView()){
+                Text("Agregar")
+            }
+        )
     }
 }
 

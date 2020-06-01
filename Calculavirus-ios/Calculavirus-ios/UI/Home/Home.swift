@@ -22,9 +22,11 @@ struct Home: View {
                     ButtonHome(title: "Insumos", colorBack: Color( red: 248/255, green: 39/255, blue: 22/255))
                 }
 //
-                NavigationLink(destination: LugaresForm()) {
+                NavigationLink(destination: LugaresListView()) {
                     ButtonHome(title: "Lugares de compra", colorBack: Color( red: 251/255, green: 215/255, blue: 4/255))
                 }
+            
+                Logout()
            }.navigationBarTitle("Calculavirus")
             }
 

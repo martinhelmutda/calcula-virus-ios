@@ -27,6 +27,7 @@ import Combine
 //    "user": "http://127.0.0.1:8000/users/1/"
 //}
 
+
 struct Insumo: Decodable & Identifiable {
     var id: Int
     var nombre: String

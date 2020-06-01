@@ -20,7 +20,9 @@ class LugaresManager: ObservableObject {
     init() {
 //        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
         
-        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=\(String(describing: Auth.auth().currentUser?.email))"
+//        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=\(String(describing: Auth.auth().currentUser?.email))"
+        
+        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=a01701813@itesm.mx"
         
         guard let url = URL(string: urlString) else {return}
         
@@ -36,7 +38,7 @@ class LugaresManager: ObservableObject {
                     
                     let lugaresResultData = try JSONDecoder().decode(LugaresResult.self, from: lugaresData)
                     
-                   
+//                    print(lugaresResultData)
                     DispatchQueue.main.async {
                         self.lugares = lugaresResultData.results
                     }
