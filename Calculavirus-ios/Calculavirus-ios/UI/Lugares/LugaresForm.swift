@@ -62,6 +62,7 @@ struct LugaresForm: View {
     @State var isOpen: Bool = false
     
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    @ObservedObject var lugarManager = LugaresManager()
     
     var manager = HttpAuth()
     
@@ -105,11 +106,11 @@ struct LugaresForm: View {
                         ]
                         self.manager.checkDetails(lugar: dataLugar, parameters: parameters)
                         
+                         self.lugarManager.fetch()
                         self.mode.wrappedValue.dismiss()
+                       
 //                        self.isOpen=true
-                    }).sheet(isPresented: $isOpen, content:{
-                            LugaresListView()
-                    } )
+                    })
                 }
             }
         }

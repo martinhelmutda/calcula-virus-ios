@@ -18,39 +18,44 @@ class LugaresManager: ObservableObject {
     @Published var lugares = [Lugar]()
     
     init() {
-//        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
-        
-//        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=\(String(describing: Auth.auth().currentUser?.email))"
-        
-        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=a01701813@itesm.mx"
-        
-        guard let url = URL(string: urlString) else {return}
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-//        request.addValue("Basic Y2FsY3VsYXZpcnVzOmFkbWlu", forHTTPHeaderField: "Authorization")
-        request.addValue("Basic bm9yY286bm9yY29ub3Jjbw==", forHTTPHeaderField: "Authorization")
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            do{
-                if let lugaresData = data{
+        fetch()
+    }
+    
+    func fetch()  {
+        //        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
+                
+        //        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=\(String(describing: Auth.auth().currentUser?.email))"
+                
+                let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=a01701813@itesm.mx"
+                
+                guard let url = URL(string: urlString) else {return}
+                
+                var request = URLRequest(url: url)
+                request.httpMethod = "GET"
+        //        request.addValue("Basic Y2FsY3VsYXZpcnVzOmFkbWlu", forHTTPHeaderField: "Authorization")
+                request.addValue("Basic bm9yY286bm9yY29ub3Jjbw==", forHTTPHeaderField: "Authorization")
+                
+                URLSession.shared.dataTask(with: request) { (data, response, error) in
                     
-                    let lugaresResultData = try JSONDecoder().decode(LugaresResult.self, from: lugaresData)
-                    
-//                    print(lugaresResultData)
-                    DispatchQueue.main.async {
-                        self.lugares = lugaresResultData.results
+                    do{
+                        if let lugaresData = data{
+                            
+                            let lugaresResultData = try JSONDecoder().decode(LugaresResult.self, from: lugaresData)
+                            
+        //                    print(lugaresResultData)
+                            DispatchQueue.main.async {
+                                self.lugares = lugaresResultData.results
+                            }
+                        } else {
+                            print("No Data")
+                        }
+                    } catch {
+                        print("ErrorLugar")
                     }
-                } else {
-                    print("No Data")
-                }
-            } catch {
-                print("ErrorLugar")
-            }
-        }.resume()
+                }.resume()
     }
 }
+
 
 
 

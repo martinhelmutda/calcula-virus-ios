@@ -59,6 +59,7 @@ class sendHTTPInsumo: ObservableObject {
 struct InsumosFormView: View {
     
     @ObservedObject var lugaresManager = LugaresManager()
+     @ObservedObject var networkingManager = GetInsumoManager()
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -90,7 +91,7 @@ struct InsumosFormView: View {
     var categorias = ["Frutas y Vegetales", "Postres", "Congelados", "Carnes", "Lácteos y Huevo", "Pastas y Harinas", "Pan", "Bebidas", "Procesados", "Higiene", "Limpieza"]
     
     var manager = sendHTTPInsumo()
-    
+     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     var body: some View {
         VStack{
             Button(action: {
@@ -188,18 +189,10 @@ struct InsumosFormView: View {
                         "user": dataInsumo.user
                     ]
                     
-//                    for (i, dict) in parameters.enumerate() {
-//                        var keys = Set<String>()
-//                        for (key, _) in dict {
-//                            if keys.contains(key) {
-//                                print("dict[\(i)] contains duplicate key: \"\(key)\"")
-//                            } else {
-//                                keys.insert(key)
-//                            }
-//                        }
-//                    }
-                    
                     self.manager.checkDetails(insumo: dataInsumo, parameters: parameters)
+                    
+                     self.networkingManager.fetch()
+                    self.mode.wrappedValue.dismiss()
                 })
             }
         }.navigationBarTitle("Registrar Insumos")

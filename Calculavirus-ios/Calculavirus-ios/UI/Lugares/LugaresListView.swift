@@ -17,6 +17,7 @@ struct LugaresListView: View {
                 LugarRow(lugar: lugar)
             }
         }
+        .onAppear(perform: lugarManager.fetch)
         .navigationBarTitle("Lugares")
         .navigationBarItems(trailing:
             NavigationLink(destination: LugaresForm()){
