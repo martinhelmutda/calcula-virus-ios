@@ -24,6 +24,7 @@ struct InsumosGeneralView: View {
         }
         .navigationBarTitle("Insumos")
         .navigationBarItems(trailing:
+//            NavigationLink(destination: InsumosFormView()){
             NavigationLink(destination: InsumosFormView()){
                 Text("Agregar")
             }

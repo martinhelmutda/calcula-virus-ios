@@ -9,81 +9,74 @@
 import Foundation
 import SwiftUI
 import Combine
+import FirebaseAuth
 
-//class InsumoCreate: ObservableObject {
-//
-////    Never Sends data
-//    var didChange = PassthroughSubject<Void, Never>()
-//
-//    var lugar_compra = 0
-//    var cantidad = 18
-//
-//    var nombre = ""
-//    var descripcion = ""
-//    var marca = "" { didSet { update() }}
-//    var categoria = "" { didSet { update() }}
-//    var caducidad = "" { didSet { update() }}
-//    var prioridad = 0 { didSet { update() }}
-//    var duracion_promedio = 0 { didSet { update() }}
-//    var image = "" { didSet { update() }}
-//
-//    func update() {
-//        didChange.send(())
-//    }
-//
-//}
 
-//struct LugarSend {
-//    let nombre : String
-//    let descripcion : String
-//    let image : UIImage?
-//    let user : String
-//}
-//
-//class HttpAuth: ObservableObject {
-//    var didChange = PassthroughSubject<HttpAuth, Never>()
-//
-//
-//    var authenticated = false {
-//        didSet {
-//            didChange.send(self)
-//        }
-//    }
-//
-//    func checkDetails(lugar: LugarSend, parameters: [String:Any]) {
-//
-//        let urlString = "http://127.0.0.1:8000/lugares/"
-//        let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
-//
-//        let headers = [
-//            "Authorization": authToken,
-//            "Content-Type": "multipart/form-data"
-//        ]
-//
-//        if(lugar.image == nil){
-//
-//            NetworkingManager.uploadSomeData(urlString, params: parameters, header: headers)
-//        }else{
-//            ImageUploader.uploadPhoto(urlString, image: lugar.image, params: parameters, header: headers)
-//        }
-//
-//
-//    }
-//}
+struct InsumoSend {
+    var nombre: String
+    var marca: String?
+    var descripcion: String?
+    var lugar_compra: String
+    var categoria: String?
+    var caducidad: String
+    var cantidad: String
+    var prioridad: Int
+    var duracion_promedio: Int
+    var image:UIImage?
+    var user:String
+}
+
+
+class sendHTTPInsumo: ObservableObject {
+    var didChange = PassthroughSubject<sendHTTPInsumo, Never>()
+    
+    var authenticated = false {
+        didSet {
+            didChange.send(self)
+        }
+    }
+    
+    func checkDetails(insumo: InsumoSend, parameters: [String:Any]) {
+        
+        let urlString = "http://127.0.0.1:8000/insumos/"
+        let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
+        
+        let headers = [
+            "Authorization": authToken,
+            "Content-Type": "multipart/form-data"
+        ]
+        
+        if(insumo.image == nil){
+            NetworkingManager.uploadSomeData(urlString, params: parameters, header: headers)
+        }else{
+            ImageUploader.uploadPhoto(urlString, image: insumo.image, params: parameters, header: headers)
+        }
+        
+        
+    }
+}
 
 struct InsumosFormView: View {
+    
     @ObservedObject var lugaresManager = LugaresManager()
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }
+    
     //    @ObservedObject var form = InsumoCreate()
     
     //    @State private var cantidad : Int
     
     @State private var nombre = ""
-      @State private var marca = ""
+    @State private var marca = ""
     @State private var descripcion = ""
     @State private var lugar_compra = 0
     @State private var categoria = ""
     @State private var cantidad = 0
-    @State private var caducidad = ""
+    @State private var caducidad = Date()
     @State private var prioridad = 0
     @State private var duracion_promedio = 0
     @State private var user = ""
@@ -96,6 +89,8 @@ struct InsumosFormView: View {
     
     var categorias = ["Frutas y Vegetales", "Postres", "Congelados", "Carnes", "Lácteos y Huevo", "Pastas y Harinas", "Pan", "Bebidas", "Procesados", "Higiene", "Limpieza"]
     
+    var manager = sendHTTPInsumo()
+    
     var body: some View {
         VStack{
             Button(action: {
@@ -106,7 +101,11 @@ struct InsumosFormView: View {
                         Spacer()
                         Image(systemName: "photo")
                         Text("Agregar Imagen")
-                            .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 100)
+                            .frame(
+                                minWidth: 0,
+                                maxWidth: 200,
+                                minHeight: 0,
+                                maxHeight: 100)
                         Spacer()
                     }.background(Color.gray.opacity(0.4))
                 }
@@ -122,37 +121,88 @@ struct InsumosFormView: View {
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .center)
                     .clipped()
             }
-        Form{
-            Section{
-                TextField("Nombre", text: $nombre)
-                TextField("Marca", text: $marca)
-                TextField("Descripción", text: $descripcion)
-            }
-            
-            Section{
-            Picker(selection: $selectedCategoria, label: Text("Categoría")) {
-                      ForEach(0 ..< categorias.count) {
-                         Text(self.categorias[$0])
-                      }
-                   }
-                   Text("You selected: \(categorias[selectedCategoria])")
-            
-            Picker(selection: $lugar_compra, label: Text("Lugar de compra")){
-                ForEach(lugaresManager.lugares) { lugar in Text(lugar.nombre)
+            Form{
+                Section{
+                    TextField("Nombre", text: $nombre)
+                    TextField("Marca", text: $marca)
+                    TextField("Descripción", text: $descripcion)
                 }
-            }
                 
-            Stepper("Prioridad (0 - 5) \(prioridad)", value: $prioridad, in: 0...5)
+                Section{
+                    Picker(selection: $selectedCategoria, label: Text("Categoría")) {
+                        ForEach(0 ..< categorias.count) {
+                            Text(self.categorias[$0])
+                        }
+                    }
+                    
+                    Picker(selection: $lugar_compra, label: Text("Lugar de compra")){
+                        ForEach(lugaresManager.lugares) { lugar in Text(lugar.nombre)
+                        }
+                    }
+                    
+                    
+                    Stepper("Prioridad (0 - 5) \(prioridad)", value: $prioridad, in: 0...5)
+                    
+                    DatePicker(selection: $caducidad, in: Date()..., displayedComponents: .date) {
+                        Text("Fecha de caducidad")
+                    }
+                    Stepper("Días de duración \(duracion_promedio)", value: $duracion_promedio, in: 0...105)
+                }
                 
-            Stepper("Días de duración \(duracion_promedio)", value: $duracion_promedio, in: 0...105)
+                Section{
+                    Stepper("Ingresa la cantidad \(cantidad)", value: $cantidad, in: 0...20)
+                }
+                
+                Button("Guardar", action: {
+                    let userEmail = Auth.auth().currentUser!.email
+                    
+                    let urlStringLugares = "http://127.0.0.1:8000/lugares/"
+                    
+                    let df = DateFormatter()
+                    df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+                    let caducidadInsumo = df.string(from: self.caducidad)
+                    
+                    let dataInsumo = InsumoSend(
+                        nombre: self.nombre,
+                        marca: self.marca,
+                        descripcion: self.descripcion,
+                        lugar_compra: (urlStringLugares + String(self.lugar_compra)+"/"),
+                        categoria: self.categorias[self.selectedCategoria],
+                        caducidad: caducidadInsumo,
+                        cantidad: String(self.cantidad),
+                        prioridad: self.prioridad,
+                        duracion_promedio: self.duracion_promedio,
+                        image: self.image,
+                        user: userEmail!)
+                    
+                    let parameters: [String:Any] = [
+                        "nombre":dataInsumo.nombre,
+                        "marca":dataInsumo.marca ?? "",
+                        "descripcion":dataInsumo.descripcion ?? "",
+                        "lugar_compra": dataInsumo.lugar_compra,
+                        "categoria": dataInsumo.categoria ?? "",
+                        "caducidad": dataInsumo.caducidad,
+                        "cantidad": dataInsumo.cantidad,
+                        "prioridad": dataInsumo.prioridad,
+                        "duracion_promedio": dataInsumo.duracion_promedio,
+                        "user": dataInsumo.user
+                    ]
+                    
+//                    for (i, dict) in parameters.enumerate() {
+//                        var keys = Set<String>()
+//                        for (key, _) in dict {
+//                            if keys.contains(key) {
+//                                print("dict[\(i)] contains duplicate key: \"\(key)\"")
+//                            } else {
+//                                keys.insert(key)
+//                            }
+//                        }
+//                    }
+                    
+                    self.manager.checkDetails(insumo: dataInsumo, parameters: parameters)
+                })
             }
-            
-            Section{
-            Stepper("Ingresa la cantidad \(cantidad)", value: $cantidad, in: 0...20)
-            }
-            
-        }
-    }.navigationBarTitle("Registrar Insumos")
+        }.navigationBarTitle("Registrar Insumos")
     }
 }
 
@@ -162,3 +212,53 @@ struct FormView_Previews: PreviewProvider {
         return InsumosFormView()
     }
 }
+
+
+
+//
+//
+//
+//struct InsumosFormView: View {
+//    @ObservedObject var lugaresManager = LugaresManager()
+////    @ObservedObject var form = InsumoCreate()
+//
+////    @State private var cantidad : Int
+//    @State private var lugar_compra = 0
+//    @State private var cantidad = 0
+//    @State private var nombre = ""
+//    @State private var descripcion = ""
+//    @State private var marca = ""
+//    @State private var categoria = ""
+//    @State private var caducidad = ""
+//    @State private var prioridad = 0
+//    @State private var duracion_promedio = 0
+//    @State private var image = ""
+//
+//
+//    var body: some View {
+//        NavigationView {
+//            Form{
+//                Section{
+//                    TextField("Nombre", text: $nombre)
+//                    TextField("Marca", text: $marca)
+//                    TextField("Descripción", text: $descripcion)
+//                }
+//
+//                Picker(selection: $lugar_compra, label: Text("Lugar de compra")){
+//                    ForEach(lugaresManager.lugares) { lugar in Text(lugar.nombre)
+//                    }
+//                }
+//
+//                Stepper("Ingresa la cantidad \(cantidad)", value: $cantidad, in: 0...20)
+//
+//            }.navigationBarTitle("Registrar Insumos")
+//        }
+//    }
+//}
+//
+//struct FormView_Previews: PreviewProvider {
+//    static var previews: some View {
+//
+//        return InsumosFormView()
+//    }
+//}

@@ -59,6 +59,10 @@ struct LugaresForm: View {
     @State private var image: UIImage? = nil
     @State private var showCaptureImageView: Bool = false
     
+    @State var isOpen: Bool = false
+    
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     var manager = HttpAuth()
     
     var body: some View {
@@ -75,9 +79,7 @@ struct LugaresForm: View {
                         Spacer()
                     }.background(Color.gray.opacity(0.4))
                 }
-            }
-                
-            .sheet(isPresented: $showCaptureImageView) {
+            }.sheet(isPresented: $showCaptureImageView) {
                 CaptureImageView(isShown: self.$showCaptureImageView, image: self.$image)
             }
             if(image != nil){
@@ -102,7 +104,12 @@ struct LugaresForm: View {
                             "user":dataLugar.user
                         ]
                         self.manager.checkDetails(lugar: dataLugar, parameters: parameters)
-                    })
+                        
+                        self.mode.wrappedValue.dismiss()
+//                        self.isOpen=true
+                    }).sheet(isPresented: $isOpen, content:{
+                            LugaresListView()
+                    } )
                 }
             }
         }
