@@ -17,8 +17,16 @@ struct InsumoRow: View {
             ImageView(withURL: insumo.image!)
                 .frame(width: 50,height: 50)
                 .clipped()
-            Text(insumo.nombre)
+                .cornerRadius(5)
+                .padding(5)
+            VStack(alignment: .leading){
+                Text(insumo.nombre).bold()
+                Text("Faltan " + String(insumo.duracion_promedio) + " día(s)")
+                    .foregroundColor(Color.gray)
+            }
             Spacer()
+            Text("Cantidad: " + String(insumo.cantidad))
+                .padding(.trailing, 20)
         }
     }
 }

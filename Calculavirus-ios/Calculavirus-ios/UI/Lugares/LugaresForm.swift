@@ -61,8 +61,9 @@ struct LugaresForm: View {
     
     @State var isOpen: Bool = false
     
-    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     @ObservedObject var lugarManager = LugaresManager()
+    @Environment(\.presentationMode) var presentationMode
     
     var manager = HttpAuth()
     
@@ -106,10 +107,11 @@ struct LugaresForm: View {
                         ]
                         self.manager.checkDetails(lugar: dataLugar, parameters: parameters)
                         
-                         self.lugarManager.fetch()
-                        self.mode.wrappedValue.dismiss()
-                       
-//                        self.isOpen=true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.lugarManager.fetch()
+                        }
+                        
+                         self.presentationMode.wrappedValue.dismiss()
                     })
                 }
             }

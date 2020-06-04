@@ -15,7 +15,6 @@ struct Logout: View {
     var body: some View {
         
         VStack{
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             Button(action:{
                 let firebaseAuth = Auth.auth()
                 do {
@@ -29,7 +28,7 @@ struct Logout: View {
                 }
             } ){
                 Text("Cerrar sesión")
-            }
+            }.padding()
             
 //            if(Auth.auth().currentUser?.displayName != nil) {
 //                Text(String((Auth.auth().currentUser?.displayName)!))

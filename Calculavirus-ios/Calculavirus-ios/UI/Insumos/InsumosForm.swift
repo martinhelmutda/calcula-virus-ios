@@ -59,7 +59,7 @@ class sendHTTPInsumo: ObservableObject {
 struct InsumosFormView: View {
     
     @ObservedObject var lugaresManager = LugaresManager()
-     @ObservedObject var networkingManager = GetInsumoManager()
+    @ObservedObject var networkingManager = GetInsumoManager()
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -86,12 +86,13 @@ struct InsumosFormView: View {
     
     @State private var showCaptureImageView: Bool = false
     @State private var selectedCategoria = 0
+     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     
-    var categorias = ["Frutas y Vegetales", "Postres", "Congelados", "Carnes", "Lácteos y Huevo", "Pastas y Harinas", "Pan", "Bebidas", "Procesados", "Higiene", "Limpieza"]
+    var categorias = ["Frutas y Vegetales", "Postres", "Congelados", "Carnes", "Lácteos y Huevo", "Pastas y Harinas", "Pan", "Bebidas", "Procesados", "Higiene", "Limpieza", "Otros"]
     
     var manager = sendHTTPInsumo()
-     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+   
     var body: some View {
         VStack{
             Button(action: {
@@ -191,8 +192,14 @@ struct InsumosFormView: View {
                     
                     self.manager.checkDetails(insumo: dataInsumo, parameters: parameters)
                     
-                     self.networkingManager.fetch()
-                    self.mode.wrappedValue.dismiss()
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.networkingManager.fetch()
+                    }
+                    
+                    self.presentationMode.wrappedValue.dismiss()
+                    
+                    
                 })
             }
         }.navigationBarTitle("Registrar Insumos")
@@ -206,52 +213,3 @@ struct FormView_Previews: PreviewProvider {
     }
 }
 
-
-
-//
-//
-//
-//struct InsumosFormView: View {
-//    @ObservedObject var lugaresManager = LugaresManager()
-////    @ObservedObject var form = InsumoCreate()
-//
-////    @State private var cantidad : Int
-//    @State private var lugar_compra = 0
-//    @State private var cantidad = 0
-//    @State private var nombre = ""
-//    @State private var descripcion = ""
-//    @State private var marca = ""
-//    @State private var categoria = ""
-//    @State private var caducidad = ""
-//    @State private var prioridad = 0
-//    @State private var duracion_promedio = 0
-//    @State private var image = ""
-//
-//
-//    var body: some View {
-//        NavigationView {
-//            Form{
-//                Section{
-//                    TextField("Nombre", text: $nombre)
-//                    TextField("Marca", text: $marca)
-//                    TextField("Descripción", text: $descripcion)
-//                }
-//
-//                Picker(selection: $lugar_compra, label: Text("Lugar de compra")){
-//                    ForEach(lugaresManager.lugares) { lugar in Text(lugar.nombre)
-//                    }
-//                }
-//
-//                Stepper("Ingresa la cantidad \(cantidad)", value: $cantidad, in: 0...20)
-//
-//            }.navigationBarTitle("Registrar Insumos")
-//        }
-//    }
-//}
-//
-//struct FormView_Previews: PreviewProvider {
-//    static var previews: some View {
-//
-//        return InsumosFormView()
-//    }
-//}

@@ -16,19 +16,30 @@ struct InsumosGeneralView: View {
     }
     
     var body: some View {
-        List(networkingManager.insumos){ insumo in
-            NavigationLink(destination: InsumoDetailView(insumo: insumo)) {
-                InsumoRow(insumo: insumo)
-                //                    URLImage(url: insumo.image)
+        VStack{
+            NavigationLink(destination: InsumosFormView()){
+               Image(systemName: "plus").shadow(radius: 0.9)
+                Text("Agregar Insumo").shadow(radius: 0.9)
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30, maxHeight: 35, alignment: .center)
+            .background(Color( red: 248/255, green: 39/255, blue: 22/255))
+            .foregroundColor(Color.white)
+            .font(Font.headline.weight(.medium))
+            .cornerRadius(25)
+            .shadow(radius: 2)
+            .padding(.top)
+            .padding(.leading,30)
+            .padding(.trailing,30)
+            
+            List(networkingManager.insumos){ insumo in
+                NavigationLink(destination: InsumoDetailView(insumo: insumo)) {
+                    InsumoRow(insumo: insumo)
+                    //                    URLImage(url: insumo.image)
+                }
             }
         }
-        .navigationBarTitle("Insumos")
-        .navigationBarItems(trailing:
-//            NavigationLink(destination: InsumosFormView()){
-            NavigationLink(destination: InsumosFormView()){
-                Text("Agregar")
-            }
-        )
+        .onAppear(perform: networkingManager.fetch)
+        .navigationBarTitle("Mis Insumos")
     }
 }
 
