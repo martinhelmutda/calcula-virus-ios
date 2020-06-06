@@ -36,12 +36,14 @@ struct InsumoRow_Previews: PreviewProvider {
         
         let json = [
             "id": 1,
+            "user":"a01701813@itesm.mx",
             "nombre": "Mezcal el pescador de sueños",
             "marca": "Pescador de sueños",
             "descripcion": "Un Mezcal de los dioses",
             "lugar_compra": "http://127.0.0.1:8000/lugares/1/",
             "categoria": "Elíxir",
             "caducidad": "2022-09-03T00:00:00Z",
+            "fecha_ultima_compra": "2022-09-03T00:00:00Z",
             "cantidad": "1",
             "prioridad": 5,
             "duracion_promedio": 1234,

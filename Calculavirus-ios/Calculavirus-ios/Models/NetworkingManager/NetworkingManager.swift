@@ -38,18 +38,13 @@ class NetworkingManager {
 
 class GetInsumoManager: ObservableObject {
     
-    var didChange = PassthroughSubject<GetInsumoManager, Never>()
-    
     @Published var insumos = [Insumo]()
     
-    
-    init() {
-        fetch()
-    }
+    var didChange = PassthroughSubject<GetInsumoManager, Never>()
+
+    init() { fetch() }
 
     func fetch() {
-        
-          print("FETCH HACIÉNdose")
         
         //        let userEmail = Auth.auth().currentUser?.email
         //        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"

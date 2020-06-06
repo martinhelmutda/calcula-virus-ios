@@ -9,11 +9,13 @@
 import UIKit
 import GoogleSignIn
 import Firebase
+import Alamofire
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
- 
     
+    var signManager = sendHttpUser()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -44,34 +46,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     }
     
     
-   func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-     // ...
-     if let error = error {
-       // ...
-        print(error.localizedDescription)
-       return
-     }
-
-     guard let authentication = user.authentication else { return }
-     let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-     // ...
-    Auth.auth().signIn(with: credential, completion: {(res, err) in
-        if err != nil{
-            print((err?.localizedDescription)!)
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        // ...
+        if let error = error {
+            // ...
+            print(error.localizedDescription)
             return
         }
         
-        print("user " + (res?.user.email)!)
-        UserDefaults.standard.set(true, forKey: "status")
-        NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-    })
-   }
-
-   func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-       // Perform any operations when the user disconnects from app here.
-       // ...
-   }
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,accessToken: authentication.accessToken)
+        
+        // ...
+        Auth.auth().signIn(with: credential, completion: {(res, err) in
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+            
+            let parameters: [String:Any] = [
+                "name":res!.user.displayName!,
+                "email":res!.user.email!,
+            ]
+            
+            self.signManager.checkDetails(parameters: parameters)
+            
+            print("user " + (res?.user.email)!)
+            UserDefaults.standard.set(true, forKey: "status")
+            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+        })
+    }
+    
+    
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
     
 }
 

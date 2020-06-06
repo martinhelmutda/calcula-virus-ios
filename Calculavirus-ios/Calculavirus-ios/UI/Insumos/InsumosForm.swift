@@ -156,7 +156,7 @@ struct InsumosFormView: View {
                 }
                 
                 Button("Guardar", action: {
-                    let userEmail = Auth.auth().currentUser!.email
+                    let user = Auth.auth().currentUser!.displayName
                     
                     let urlStringLugares = "http://127.0.0.1:8000/lugares/"
                     
@@ -175,7 +175,7 @@ struct InsumosFormView: View {
                         prioridad: self.prioridad,
                         duracion_promedio: self.duracion_promedio,
                         image: self.image,
-                        user: userEmail!)
+                        user: user!)
                     
                     let parameters: [String:Any] = [
                         "nombre":dataInsumo.nombre,

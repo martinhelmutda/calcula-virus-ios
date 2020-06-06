@@ -35,6 +35,7 @@
 		9A81AA31247B648600132EDE /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 9A81AA30247B648600132EDE /* SwiftyJSON */; };
 		9A8D29E72478C149009F1EAC /* LugaresForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8D29E62478C149009F1EAC /* LugaresForm.swift */; };
 		9AB8F7212487147600543F5A /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8F7202487147600543F5A /* Logout.swift */; };
+		9AB8F7232489C96C00543F5A /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8F7222489C96C00543F5A /* Authentication.swift */; };
 		9AFE31D0247D55A100901FF5 /* AppleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE31CF247D55A100901FF5 /* AppleLogin.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		9A52AB042484C3110057D3D4 /* LugarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LugarDetailView.swift; sourceTree = "<group>"; };
 		9A8D29E62478C149009F1EAC /* LugaresForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LugaresForm.swift; sourceTree = "<group>"; };
 		9AB8F7202487147600543F5A /* Logout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
+		9AB8F7222489C96C00543F5A /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		9AFE31CF247D55A100901FF5 /* AppleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLogin.swift; sourceTree = "<group>"; };
 		E1F2C93701409571A0F49973 /* Pods_Calculavirus_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calculavirus_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -185,6 +187,7 @@
 				9A2EDF1024784506007F9CB3 /* NetworkingManager.swift */,
 				9A2EDF1224784521007F9CB3 /* LugaresManager.swift */,
 				9A2EDF142478453D007F9CB3 /* ImagenesManager.swift */,
+				9AB8F7222489C96C00543F5A /* Authentication.swift */,
 			);
 			path = NetworkingManager;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				9A2EDF1A24784615007F9CB3 /* CircleImage.swift in Sources */,
 				9A2EDF0C247844B8007F9CB3 /* Lugar.swift in Sources */,
 				9A2EDF17247845F5007F9CB3 /* InsumoDetailView.swift in Sources */,
+				9AB8F7232489C96C00543F5A /* Authentication.swift in Sources */,
 				9A3AF38A24817986009B482C /* ImagePicker.swift in Sources */,
 				9A52AB032484C2500057D3D4 /* LugaresListView.swift in Sources */,
 				9A2EDF1F2478492A007F9CB3 /* Prueba.swift in Sources */,
