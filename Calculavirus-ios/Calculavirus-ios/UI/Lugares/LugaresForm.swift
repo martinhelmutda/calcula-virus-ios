@@ -33,7 +33,10 @@ class HttpAuth: ObservableObject {
     
     func checkDetails(lugar: LugarSend, parameters: [String:Any]) {
         
-        let urlString = "http://127.0.0.1:8000/lugares/"
+//        let urlString = "http://127.0.0.1:8000/lugares/"
+//        let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
+        
+        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
         let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
         
         let headers = [
@@ -109,9 +112,10 @@ struct LugaresForm: View {
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.lugarManager.fetch()
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                         
-                         self.presentationMode.wrappedValue.dismiss()
+                         
                     })
                 }
             }

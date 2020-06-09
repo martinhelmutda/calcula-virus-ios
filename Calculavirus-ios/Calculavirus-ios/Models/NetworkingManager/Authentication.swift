@@ -26,7 +26,7 @@ class sendHttpUser: ObservableObject {
     
     func checkDetails(parameters: [String:Any]) {
         
-        let urlString = "http://127.0.0.1:8000/users/"
+        let urlString = "http://martinhelmut.pythonanywhere.com/users/"
         let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
         
         let headers = [

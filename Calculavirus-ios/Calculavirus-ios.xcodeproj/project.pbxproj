@@ -36,7 +36,8 @@
 		9A8D29E72478C149009F1EAC /* LugaresForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8D29E62478C149009F1EAC /* LugaresForm.swift */; };
 		9AB8F7212487147600543F5A /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8F7202487147600543F5A /* Logout.swift */; };
 		9AB8F7232489C96C00543F5A /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8F7222489C96C00543F5A /* Authentication.swift */; };
-		9AFE31D0247D55A100901FF5 /* AppleLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFE31CF247D55A100901FF5 /* AppleLogin.swift */; };
+		9AB8F726248C271300543F5A /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8F725248C271200543F5A /* Checklist.swift */; };
+		9AB8F728248C274D00543F5A /* ItemChecklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB8F727248C274D00543F5A /* ItemChecklist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,7 +71,8 @@
 		9A8D29E62478C149009F1EAC /* LugaresForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LugaresForm.swift; sourceTree = "<group>"; };
 		9AB8F7202487147600543F5A /* Logout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		9AB8F7222489C96C00543F5A /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
-		9AFE31CF247D55A100901FF5 /* AppleLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLogin.swift; sourceTree = "<group>"; };
+		9AB8F725248C271200543F5A /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
+		9AB8F727248C274D00543F5A /* ItemChecklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemChecklist.swift; sourceTree = "<group>"; };
 		E1F2C93701409571A0F49973 /* Pods_Calculavirus_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calculavirus_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -144,6 +146,7 @@
 		9A2EDEFF247843D0007F9CB3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9AB8F724248C26C500543F5A /* Checklist */,
 				9A11048A247F674E00D1816F /* Home */,
 				9A8D29E52478C11C009F1EAC /* Lugares */,
 				9A2EDF1824784607007F9CB3 /* General */,
@@ -206,7 +209,6 @@
 			isa = PBXGroup;
 			children = (
 				9A2EDF1E2478492A007F9CB3 /* Prueba.swift */,
-				9AFE31CF247D55A100901FF5 /* AppleLogin.swift */,
 			);
 			path = Prueba;
 			sourceTree = "<group>";
@@ -219,6 +221,15 @@
 				9A52AB042484C3110057D3D4 /* LugarDetailView.swift */,
 			);
 			path = Lugares;
+			sourceTree = "<group>";
+		};
+		9AB8F724248C26C500543F5A /* Checklist */ = {
+			isa = PBXGroup;
+			children = (
+				9AB8F725248C271200543F5A /* Checklist.swift */,
+				9AB8F727248C274D00543F5A /* ItemChecklist.swift */,
+			);
+			path = Checklist;
 			sourceTree = "<group>";
 		};
 		C0F52ECFE4D4A7F83937C773 /* Pods */ = {
@@ -387,6 +398,7 @@
 				9A2EDF1324784521007F9CB3 /* LugaresManager.swift in Sources */,
 				9A2EDF0E247844D4007F9CB3 /* ImageView.swift in Sources */,
 				9AB8F7212487147600543F5A /* Logout.swift in Sources */,
+				9AB8F726248C271300543F5A /* Checklist.swift in Sources */,
 				9A8D29E72478C149009F1EAC /* LugaresForm.swift in Sources */,
 				9A2EDF1A24784615007F9CB3 /* CircleImage.swift in Sources */,
 				9A2EDF0C247844B8007F9CB3 /* Lugar.swift in Sources */,
@@ -397,11 +409,11 @@
 				9A2EDF1F2478492A007F9CB3 /* Prueba.swift in Sources */,
 				9A11048C247F67B800D1816F /* Home.swift in Sources */,
 				9A2EDF152478453D007F9CB3 /* ImagenesManager.swift in Sources */,
-				9AFE31D0247D55A100901FF5 /* AppleLogin.swift in Sources */,
 				9A2EDF042478444A007F9CB3 /* InsumosListView.swift in Sources */,
 				9A2EDF1124784506007F9CB3 /* NetworkingManager.swift in Sources */,
 				9A2EDEEE247842D5007F9CB3 /* SceneDelegate.swift in Sources */,
 				9A52AB052484C3110057D3D4 /* LugarDetailView.swift in Sources */,
+				9AB8F728248C274D00543F5A /* ItemChecklist.swift in Sources */,
 				9A2EDF0A2478449B007F9CB3 /* Insumo.swift in Sources */,
 				9A2EDEF0247842D5007F9CB3 /* ContentView.swift in Sources */,
 				9A2EDF062478446F007F9CB3 /* InsumosRow.swift in Sources */,

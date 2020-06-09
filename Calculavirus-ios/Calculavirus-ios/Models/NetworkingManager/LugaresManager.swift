@@ -23,11 +23,10 @@ class LugaresManager: ObservableObject {
     
     
     func fetch()  {
-        //        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/"
+         let user = String(describing: Auth.auth().currentUser!.email!)
         
-        //        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=\(String(describing: Auth.auth().currentUser?.email))"
+        let urlString = "http://martinhelmut.pythonanywhere.com/lugares/get_lugares_by_user/?user_email=" + user
         
-        let urlString = "http://127.0.0.1:8000/lugares/get_lugares_by_user/?user_email=a01701813@itesm.mx"
         
         guard let url = URL(string: urlString) else {return}
         

@@ -39,7 +39,7 @@ struct LugarDetailView_Previews: PreviewProvider {
             "id": 1,
             "nombre": "El Norte",
             "descripcion": "Lo compré en el norte",
-            "image": "http://127.0.0.1:8000/media/lugares/IMG_9887_Uc8cqdb.JPG",
+            "image": "http://martinhelmut.pythonanywhere.com/media/market.jpg",
             "user": "a01701813@itesm.mx"
             ] as [String : Any]
         

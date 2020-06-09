@@ -46,10 +46,11 @@ class GetInsumoManager: ObservableObject {
 
     func fetch() {
         
-        //        let userEmail = Auth.auth().currentUser?.email
-        //        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"
-        //        let urlString = "http://127.0.0.1:8000/insumos/get_insumos_by_user/??user_email==\(String(describing: userEmail))"
-        let urlString = "http://127.0.0.1:8000/insumos/get_insumos_by_user/?user_email=a01701813@itesm.mx"
+        let user = String(describing: Auth.auth().currentUser!.email!)
+        
+//        let urlString = "http://127.0.0.1:8000/insumos/get_insumos_by_user/?user_email="+user
+        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/get_insumos_by_user/?user_email="+user
+        
         
         guard let url = URL(string: urlString) else {return}
         

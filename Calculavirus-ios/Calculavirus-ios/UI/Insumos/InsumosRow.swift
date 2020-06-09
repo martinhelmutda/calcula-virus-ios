@@ -40,14 +40,14 @@ struct InsumoRow_Previews: PreviewProvider {
             "nombre": "Mezcal el pescador de sueños",
             "marca": "Pescador de sueños",
             "descripcion": "Un Mezcal de los dioses",
-            "lugar_compra": "http://127.0.0.1:8000/lugares/1/",
+            "lugar_compra": "http://martinhelmut.pythonanywhere.com/lugares/1/",
             "categoria": "Elíxir",
             "caducidad": "2022-09-03T00:00:00Z",
             "fecha_ultima_compra": "2022-09-03T00:00:00Z",
             "cantidad": "1",
             "prioridad": 5,
             "duracion_promedio": 1234,
-            "image": "http://127.0.0.1:8000/media/products/None/images_f4XgBiS.jpeg"
+            "image": "http://martinhelmut.pythonanywhere.com/media/location.jpg"
             ] as [String : Any]
 
         let data = try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)

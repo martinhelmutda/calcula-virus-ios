@@ -27,6 +27,7 @@ struct Logout: View {
                     print ("Error signing out: %@", signOutError)
                 }
             } ){
+                Image(systemName: "gear")
                 Text("Cerrar sesión")
             }.padding()
             

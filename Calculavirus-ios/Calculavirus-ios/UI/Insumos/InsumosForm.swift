@@ -38,7 +38,7 @@ class sendHTTPInsumo: ObservableObject {
     
     func checkDetails(insumo: InsumoSend, parameters: [String:Any]) {
         
-        let urlString = "http://127.0.0.1:8000/insumos/"
+        let urlString = "http://martinhelmut.pythonanywhere.com/insumos/"
         let authToken = "Basic bm9yY286bm9yY29ub3Jjbw=="
         
         let headers = [
@@ -158,7 +158,7 @@ struct InsumosFormView: View {
                 Button("Guardar", action: {
                     let user = Auth.auth().currentUser!.displayName
                     
-                    let urlStringLugares = "http://127.0.0.1:8000/lugares/"
+                    let urlStringLugares = "http://martinhelmut.pythonanywhere.com/lugares/"
                     
                     let df = DateFormatter()
                     df.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -195,9 +195,10 @@ struct InsumosFormView: View {
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.networkingManager.fetch()
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                     
-                    self.presentationMode.wrappedValue.dismiss()
+                    
                     
                     
                 })
