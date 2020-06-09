@@ -12,7 +12,8 @@ import Foundation
 
 struct ItemChecklist: View {
     var insumo: Insumo
-    @State private var prioridad = 0
+    @State private var cantidad = 0
+    
     
     var body: some View {
         HStack {
@@ -26,8 +27,8 @@ struct ItemChecklist: View {
             }
             Spacer()
             VStack{
-                Text("Cantidad: \(prioridad)")
-                Stepper("Title", value: $prioridad, in: 0...30).labelsHidden()
+                Text("Cantidad: \(cantidad)")
+                Stepper("Title", value: $cantidad, in: 0...30).labelsHidden()
             }.padding(.trailing,20)
             
         }

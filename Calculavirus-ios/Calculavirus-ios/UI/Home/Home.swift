@@ -14,7 +14,7 @@ struct Home: View {
     var body: some View {
         NavigationView {
            VStack {
-               NavigationLink(destination: InsumosGeneralView()) {
+               NavigationLink(destination: ItemList()) {
                 ButtonHome(title: "Checklist", colorBack: Color( red: 16/255, green: 216/255, blue: 184/255))
                }
             
